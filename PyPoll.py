@@ -62,59 +62,54 @@ with open(file_to_load) as election_data:
         candidate_votes[candidate_name] += 1
 
 
-#calcuating 
-#formula is vote_percentage = votes/total_votes) * 100
-#calculate the percentage of votes for each candidate and convert to an integer
+#the results need to be written to a text file
+with open(file_to_save, "w") as txt_file:
 
-#1. iterate through the candadate list
-for candidate_name in candidate_votes:
-#get the vote count for each candidate - this is using the dictionary and key variable
-  votes = candidate_votes[candidate_name]
-
-#calculate the percentage of votes
-  vote_percentage = float(votes)/float(total_votes) * 100
-
-  print(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
-
-
-#Determining the winning candidate using a for loop
-
-# 1. is winning count greater than vote count set the winning to be equal to that number
-  if (votes > winning_count) and (vote_percentage > winning_percentage):
-
-#2 if true then set the values as follows 
-    winning_count=votes
-    winning_percentage=vote_percentage
-
-#3 assign the candidate name to the winner
-    winning_candidate_name = candidate_name
-
-winning_summary = (f"-------------------------\n"
-    f"Winner: {winning_candidate_name}\n"
-    f"Winning Vote Count: {winning_count:,}\n"
-    f"Winning Percentage: {winning_percentage:.1f}%\n"
-    f"-------------------------\n")
-
-print(winning_summary)
-
-
-
-
-    #print each row in the csv file
-    #--for row in file_reader:
-      #--total_votes +=1
-
-    #print the candidate name for each row
-      #--candidate_name = row[2]
-    
-    #if the candidate does not match existing candidate
-    #--if candidate_name not in candidate_options:
+# Print the final vote count to the terminal.
+    election_results = (
+        f"\nElection Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {total_votes:,}\n"
+        f"-------------------------\n")
+    print(election_results, end="")
+    # Save the final vote count to the text file.
+    txt_file.write(election_results)
     
 
-    #add the candidate name to the candidate list
-        #--candidate_options.append(candidate_name)
+      #calcuating 
+      #formula is vote_percentage = votes/total_votes) * 100
+      #calculate the percentage of votes for each candidate and convert to an integer
 
-#print candidate list
-#--print(candidate_options)
+      #1. iterate through the candadate list
+    for candidate_name in candidate_votes:
+      #get the vote count for each candidate - this is using the dictionary and key variable
+        votes = candidate_votes[candidate_name]
+
+      #calculate the percentage of votes
+        vote_percentage = float(votes)/float(total_votes) * 100
+
+        candidate_results = (f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+        print(candidate_results)
+        txt_file.write(candidate_results)
 
 
+
+      #Determining the winning candidate using a for loop
+
+      # 1. is winning count greater than vote count set the winning to be equal to that number
+        if (votes > winning_count) and (vote_percentage > winning_percentage):
+
+      #2 if true then set the values as follows 
+          winning_count=votes
+          winning_percentage=vote_percentage
+
+      #3 assign the candidate name to the winner
+          winning_candidate_name = candidate_name
+
+    winning_summary = (f"-------------------------\n"
+          f"Winner: {winning_candidate_name}\n"
+          f"Winning Vote Count: {winning_count:,}\n"
+          f"Winning Percentage: {winning_percentage:.1f}%\n"
+          f"-------------------------\n")
+
+      #print(winning_summary)
